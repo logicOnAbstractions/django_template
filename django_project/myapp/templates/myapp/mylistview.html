@@ -1,11 +1,22 @@
+{# demo of a list view using the backend to populate the sheet #}
+
 {% extends "./base.html" %}
 
-{% block title %}Dashboard Login!!!{% endblock %}
+{% block title %}List view demo page!!!{% endblock %}
 {% block links %}
 {% endblock %}
 {% block body %}
 <body>
-<p>hello world!</p>
+{% if objects %}
+    <ul class="generic">
+    {% for object in objects %}
+        <li><a href="{% url 'myapp:list_element' object.id %}">this is some text {{ object.id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun object dans objects</p>
+
+{% endif %}
 
 {# javascript for bootstrap widgets #}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

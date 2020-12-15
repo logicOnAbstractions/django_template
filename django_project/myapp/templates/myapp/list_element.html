@@ -1,11 +1,14 @@
+{# demo of a list view using the backend to populate the sheet #}
+
 {% extends "./base.html" %}
 
-{% block title %}Dashboard Login!!!{% endblock %}
+{% block title %}List detail demo page!!!{% endblock %}
 {% block links %}
 {% endblock %}
 {% block body %}
 <body>
-<p>hello world!</p>
+
+<p>This object's id: {{ object.id }} and name {{ object.name }}</p>
 
 {# javascript for bootstrap widgets #}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,0 +1,20 @@
+{# demo of a list view using the backend to populate the sheet #}
+
+{% extends "./base.html" %}
+
+{% block title %}Create list element demo page!!!{% endblock %}
+{% block links %}
+{% endblock %}
+{% block body %}
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+{% endblock %}
+</html>
