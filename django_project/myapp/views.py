@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.views import generic
 from .models import *
 from .forms import *
@@ -23,15 +23,11 @@ class ListElementView(generic.DetailView):
     model = MyObjects
     template_name = 'myapp/list_element.html'
 
-def create_product(request):
-    if request.method == "POST":
-        form = CreateElement(request.POST)
-        if form.is_valid():
-            # create a product
-            p = MyObjects(**form.cleaned_data)
-            p.save()
+class ObjectCreate(generic.CreateView):
+    template_name = 'myapp/createlistelement.html'
+    model = MyObjects
+    fields = ["name"]
 
-            return HttpResponseRedirect('/myapp/listview')       # let's say go back to product list or something
-    else:
-        form = CreateElement()
-    return render(request, 'myapp/createlistelement.html', {'form': form})
+    def get_success_url(self):
+        return reverse('myapp:mylistview')
+
