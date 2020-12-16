@@ -1,0 +1,33 @@
+about
+-----------
+
+a definitive Django Project template that has all I would typically need for most applications
+
+components
+-------------
+
+* a login system with bases for users
+* a superuser fv fv
+* data pipeline examples:
+    * proper forms setup to enter a new object in a collection
+    * Listview & DetailView
+* bootstrap installed
+* a basic responsive design layout for an index page
+* sqlite3 db backend
+* use a base.html, with other html using it as a extension
+
+
+
+tricks & accelerators
+-------------------------
+
+emmet
+~~~~~~~~~~
+
+* div.row>div.col.col-md-6*2: will build all the html for a div row, with 2 div col of size 6 within. Super usefule
+
+class, methods & other stubs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* typing "class..." will bring up usual text completion, but also class_django_views, class_django_model, etc.
+* each template is adapted to what a class in that context may need (e.g. views use class attribute, typically not __init__() etc.)
