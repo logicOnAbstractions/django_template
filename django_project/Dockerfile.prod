@@ -1,0 +1,49 @@
+########################## BUILDER ##############################
+
+FROM python:3.9 as builder
+
+WORKDIR /usr/src/django_project
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# psycog2 dependancies
+RUN apt-get update \
+    && apt-get install -y postgresql gcc python3-dev musl-dev
+
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+COPY . .
+
+
+########################## FINAL ##############################
+FROM python:3.9
+
+RUN mkdir -p /home/app
+
+# create non-root user
+RUN groupadd -S app && useradd -S app -G app
+
+# create dirs
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+# install deps
+RUN apt-get update && apt-get install libpq
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# copy project
+COPY . $APP_HOME
+
+# change ownership on code so non-root can run it
+RUN chown -R app:app $APP_HOME
+
+# switch user
+USER app
+
